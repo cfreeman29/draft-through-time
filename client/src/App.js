@@ -1,8 +1,23 @@
-// App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import VietnamDraft from './VietnamDraft';
-import './styles.css'; // Make sure this path is correct
+import './styles.css';
+
+const NavLink = ({ to, children }) => {
+  let navigate = useNavigate(); // Hook for navigation
+
+  return (
+    <motion.button
+      className="nav-link"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => navigate(to)} // Programmatically navigate
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 function App() {
   return (
@@ -14,20 +29,16 @@ function App() {
         <nav>
           <ul>
             <li>
-              <NavLink to="/vietnam" className={({ isActive }) => isActive ? 'nav-link active-link' : 'nav-link'}>
-                Vietnam War Draft
-              </NavLink>
+              {/* Use NavLink component for navigation */}
+              <NavLink to="/vietnam">Vietnam War Draft</NavLink>
             </li>
-            {/* Additional links here */}
           </ul>
         </nav>
         <main>
           <Routes>
             <Route path="/vietnam" element={<VietnamDraft />} />
-            {/* Additional routes here */}
           </Routes>
         </main>
-        {/* Footer could go here */}
       </div>
     </Router>
   );
