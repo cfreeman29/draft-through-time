@@ -27,9 +27,9 @@ function VietnamDraft() {
 
     if (draftedInfo.length > 0) {
       const infoMessages = draftedInfo.map(info => `In ${info.year}, with draft number ${info.number}`).join('; ');
-      setDraftInfo(`You would have been drafted: ${infoMessages}.`);
+      setDraftInfo(`Based on your birthday, you would have been drafted: ${infoMessages}.`);
     } else {
-      setDraftInfo("Based on your draft number, you would not have been drafted.");
+      setDraftInfo("Based on your birthday, you would not have been drafted.");
     }
 
     setShowDraftDetails(true);
@@ -37,7 +37,8 @@ function VietnamDraft() {
 
   return (
     <div>
-      <h2>Vietnam War Draft Number Checker</h2>
+      <h1>Vietnam War Draft Checker</h1>
+      <h2>Check Your Draft Status</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="month"
@@ -75,18 +76,20 @@ function VietnamDraft() {
           type="submit"
           className="submit-button"
         >
-          Check Number
+          Check Draft Status
         </motion.button>
       </form>
 
       {showDraftDetails && (
         <motion.div
-          initial={{ x: '-100vw' }}
-          animate={{ x: 0 }}
-          transition={{ type: 'spring', stiffness: 120 }}
+          className="info-container"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
           {draftInfo && <p>{draftInfo}</p>}
           <div>
+            <h2>Vietnam War Draft Lottery Information</h2>
             <p><strong>1969:</strong> Lottery on December 1, 1969, for men born from 1944 through 1950. Highest number called: 195</p>
             <p><strong>1970:</strong> Lottery on July 1, 1970, for men born in 1951. Highest number called: 125.</p>
             <p><strong>1971:</strong> Lottery on August 5, 1971, for men born in 1952. Highest number called: 95.</p>
