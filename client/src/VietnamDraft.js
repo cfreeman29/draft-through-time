@@ -2,22 +2,21 @@ import React, { useState } from 'react';
 import draftData from './data/vietnam_draft_data.json';
 import draftThresholds from './data/draftThresholds.json';
 import { motion } from 'framer-motion';
-import './styles.css';
 import { useForm, Controller } from 'react-hook-form';
 
 function VietnamDraft() {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const [draftInfo, setDraftInfo] = useState('');
   const [showDraftDetails, setShowDraftDetails] = useState(false);
-
+  
   const months = Array.from({ length: 12 }, (_, i) => `${i + 1}`);
   const days = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
 
   const onSubmit = data => {
     const { month, day } = data;
     const formattedDate = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    let draftedInfo = [];
 
+    let draftedInfo = [];
     Object.keys(draftData.Vietnam).forEach(year => {
       const yearData = draftData.Vietnam[year];
       const entry = yearData.find(e => e.date === formattedDate);
@@ -32,6 +31,7 @@ function VietnamDraft() {
     } else {
       setDraftInfo("Based on your draft number, you would not have been drafted.");
     }
+
     setShowDraftDetails(true);
   };
 
@@ -53,7 +53,7 @@ function VietnamDraft() {
           )}
         />
         {errors.month && <p>This field is required.</p>}
-  
+
         <Controller
           name="day"
           control={control}
@@ -68,7 +68,7 @@ function VietnamDraft() {
           )}
         />
         {errors.day && <p>This field is required.</p>}
-  
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -78,14 +78,14 @@ function VietnamDraft() {
           Check Number
         </motion.button>
       </form>
+
       {showDraftDetails && (
         <motion.div
           initial={{ x: '-100vw' }}
           animate={{ x: 0 }}
-          transition={{ type: 'spring', stiffness: 120 }} // Control the speed of the animation
+          transition={{ type: 'spring', stiffness: 120 }}
         >
           {draftInfo && <p>{draftInfo}</p>}
-          {/* Your detailed year information */}
           <div>
             <p><strong>1969:</strong> Lottery on December 1, 1969, for men born from 1944 through 1950. Highest number called: 195</p>
             <p><strong>1970:</strong> Lottery on July 1, 1970, for men born in 1951. Highest number called: 125.</p>

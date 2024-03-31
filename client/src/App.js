@@ -2,17 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import VietnamDraft from './VietnamDraft';
-import './styles.css';
+import './App.css';
 
 const NavLink = ({ to, children }) => {
-  let navigate = useNavigate(); // Hook for navigation
+  let navigate = useNavigate();
 
   return (
     <motion.button
       className="nav-link"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={() => navigate(to)} // Programmatically navigate
+      onClick={() => navigate(to)}
     >
       {children}
     </motion.button>
@@ -22,14 +22,13 @@ const NavLink = ({ to, children }) => {
 function App() {
   return (
     <Router>
-      <div className="container">
+      <div className="App">
         <header>
           <h1>Drafted Through Time</h1>
         </header>
         <nav>
           <ul>
             <li>
-              {/* Use NavLink component for navigation */}
               <NavLink to="/vietnam">Vietnam War Draft</NavLink>
             </li>
           </ul>
