@@ -1,11 +1,16 @@
 const express = require('express');
-const app = express();
-const port = 3001; // Use a different port than your React app to avoid conflicts
+const path = require('path');
 
-app.get('/', (req, res) => {
-  res.send('Drafted Through Time backend is running!');
+const app = express();
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the React application
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
 });
